@@ -1,6 +1,6 @@
 # Where Am I?
 
-A composer action to share your location!
+A composer action to share your location on Farcaster.
 
 ## How does it work?
 

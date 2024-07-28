@@ -10,7 +10,7 @@ export const GET = async () => {
     icon: "pin",
     name: "Where Am I?",
     aboutUrl: `${appURL()}`,
-    description: "A composer action to share your location on Farcaster!",
+    description: "A composer action to share your location on Farcaster.",
   });
 };
 

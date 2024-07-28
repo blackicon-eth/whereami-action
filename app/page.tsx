@@ -5,7 +5,7 @@ import { appURL } from "./utils";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Where Am I?",
-    description: "A composer action to share your location on Farcaster!",
+    description: "A composer action to share your location on Farcaster.",
     other: {
       ...(await fetchMetadata(new URL("/frames", appURL()))),
     },
