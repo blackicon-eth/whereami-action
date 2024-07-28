@@ -9,21 +9,21 @@ export const GET = async () => {
     },
     icon: "pin",
     name: "Where Am I?",
-    aboutUrl: `${appURL()}/composer-actions`, // This is an optional about page (TODO: create this page)
-    description: "Creates a frame with your location in the world",
+    aboutUrl: `${appURL()}`,
+    description: "A composer action to share your location on Farcaster!",
   });
 };
 
 export const POST = frames(async (ctx) => {
-  //const walletAddress = await ctx.walletAddress();
+  const walletAddress = await ctx.walletAddress();
 
   const createActionUrl = new URL("/actions/form", appURL());
 
-  // if (walletAddress) {
-  //   createActionUrl.searchParams.set("uid", walletAddress);
-  // } else {
-  //   return error("Must be authenticated");
-  // }
+  if (walletAddress) {
+    createActionUrl.searchParams.set("uid", walletAddress);
+  } else {
+    return error("Must be authenticated");
+  }
 
   // in case of composer actions we can't use ctx.state because the composer actions
   if (!ctx.composerActionState) {
