@@ -1,0 +1,78 @@
+import puppeteer from "puppeteer";
+import { NextRequest, NextResponse } from "next/server";
+
+const handler = async (req: NextRequest) => {
+  const lng = req.nextUrl.searchParams.get("lng");
+  const lat = req.nextUrl.searchParams.get("lat");
+  const location = req.nextUrl.searchParams.get("location");
+
+  const latitude = parseFloat(lat as string);
+  const longitude = parseFloat(lng as string);
+
+  // Launch a headless browser
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  // Set the viewport size to be slightly larger than the map container size
+  await page.setViewport({ width: 955, height: 500 });
+
+  // Set the content of the page
+  await page.setContent(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+      <style>
+        #map { height: 500px; width: 955px; margin-top: -8px; margin-left: -8px; }
+        .leaflet-popup-content-wrapper {
+          font-size: 25px; /* Increase the font size */
+        }
+        .leaflet-popup-content {
+          font-size: 25px; /* Increase the font size */
+        }
+        .leaflet-popup-close-button {
+          display: none; /* Hide the close button */
+        }
+      </style>
+    </head>
+    <body>
+      <div id="map"></div>
+      <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+      <script>
+        var map = L.map('map', { zoomControl: false }).setView([${latitude}, ${longitude}], 17);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        
+        var customIcon = L.icon({
+          iconUrl: 'http://localhost:3000/pin.png', // Default icon URL
+          iconSize: [87, 87], 
+          iconAnchor: [44, 87],
+          popupAnchor: [0, -90],
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          shadowSize: [68, 95],
+          shadowAnchor: [22, 94]
+        });
+
+        L.marker([${latitude}, ${longitude}], { icon: customIcon })
+            .addTo(map).bindPopup("Hi, I'm in ${location}!").openPopup();
+      </script>
+    </body>
+    </html>
+  `);
+
+  // Wait for the map to render
+  await page.waitForSelector("#map");
+
+  // Wait for network to be idle
+  await page.waitForNetworkIdle({ idleTime: 1000 });
+
+  // Capture the screenshot
+  const buffer = await page.screenshot({ type: "png" });
+
+  // Close the browser
+  await browser.close();
+
+  return new NextResponse(buffer, { headers: { "Content-Type": "image/png" } });
+};
+
+export const GET = handler;
+export const POST = handler;
