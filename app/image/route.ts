@@ -1,5 +1,7 @@
-import puppeteer from "puppeteer";
+//import puppeteer from "puppeteer";
 import { NextRequest, NextResponse } from "next/server";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 import { appURL } from "../utils";
 
 const handler = async (req: NextRequest) => {
@@ -10,8 +12,16 @@ const handler = async (req: NextRequest) => {
   const latitude = parseFloat(lat as string);
   const longitude = parseFloat(lng as string);
 
+  // Optional: If you'd like to disable webgl, true is the default.
+  chromium.setGraphicsMode = false;
+
   // Launch a headless browser
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
+  });
   const page = await browser.newPage();
 
   // Set the viewport size to be slightly larger than the map container size
