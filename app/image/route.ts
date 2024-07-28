@@ -29,6 +29,8 @@ const handler = async (req: NextRequest) => {
   // Set the viewport size to be slightly larger than the map container size
   await page.setViewport({ width: 955, height: 500 });
 
+  console.log("pin url", `${appURL()}/pin.png`);
+
   // Set the content of the page
   await page.setContent(`
     <!DOCTYPE html>
@@ -56,7 +58,7 @@ const handler = async (req: NextRequest) => {
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         
         var customIcon = L.icon({
-          iconUrl: 'http://localhost:3000/pin.png', // Default icon URL
+          iconUrl: '${appURL()}/pin.png', // Default icon URL
           iconSize: [88, 88], 
           iconAnchor: [44, 88],
           popupAnchor: [0, -91],
