@@ -96,7 +96,7 @@ export default function LocationForm({
 
   return (
     <form
-      className="flex flex-col gap-3 bg-lime-300 px-5 pb-5 pt-3 mx-2 mb-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]"
+      className="flex flex-col gap-3 bg-lime-300 px-5 pb-5 pt-3 m-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]"
       onSubmit={submitForm}
     >
       {/* City */}
