@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import { NextRequest, NextResponse } from "next/server";
+import { appURL } from "../utils";
 
 const handler = async (req: NextRequest) => {
   const lng = req.nextUrl.searchParams.get("lng");
@@ -43,7 +44,7 @@ const handler = async (req: NextRequest) => {
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         
         var customIcon = L.icon({
-          iconUrl: 'http://localhost:3000/pin.png', // Default icon URL
+          iconUrl: '${appURL()}/pin.png', // Default icon URL
           iconSize: [87, 87], 
           iconAnchor: [44, 87],
           popupAnchor: [0, -90],
