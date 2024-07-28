@@ -1,7 +1,7 @@
 //import puppeteer from "puppeteer";
 import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 import { appURL } from "../utils";
 
 const handler = async (req: NextRequest) => {
@@ -19,7 +19,9 @@ const handler = async (req: NextRequest) => {
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
+    executablePath: await chromium.executablePath(
+      "https://github.com/Sparticuz/chromium/releases/download/v126.0.0/chromium-v126.0.0-pack.tar"
+    ),
     headless: chromium.headless,
   });
   const page = await browser.newPage();

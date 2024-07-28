@@ -1303,10 +1303,10 @@
     fflate "^0.7.3"
     string.prototype.codepointat "^0.2.1"
 
-"@sparticuz/chromium@^126.0.0":
+"@sparticuz/chromium-min@^126.0.0":
   version "126.0.0"
-  resolved "https://registry.yarnpkg.com/@sparticuz/chromium/-/chromium-126.0.0.tgz#4383d009c6dae1fb09e6fb9503ce50ac8348ce82"
-  integrity sha512-qqGQmZQj3y0/V2osKswRHbzK4Qe80YHSDnpt6ac51hsY1bMDinMS9Q+eEmcL+re2MEhYN+ykoV9BY8Dyw1Lyjg==
+  resolved "https://registry.yarnpkg.com/@sparticuz/chromium-min/-/chromium-min-126.0.0.tgz#1a99cd711c7cb93cfdde8f286f40d0469db287a8"
+  integrity sha512-Wn51LRKXHwBEfm6OWnZmcMVkzWg1TQvSMsG0H5p6UFrOcM6GUjGLxty9Er863EuJC2gwIEc6kNr8h/mhT893oA==
   dependencies:
     follow-redirects "^1.15.6"
     tar-fs "^3.0.6"
