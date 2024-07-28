@@ -16,7 +16,6 @@
     "@vercel/kv": "^1.0.1",
     "@xmtp/frames-validator": "^0.6.1",
     "canvas": "^2.11.2",
-    "chrome-aws-lambda": "^10.1.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.0",
     "frames.js": "^0.18.0",
