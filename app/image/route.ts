@@ -1,4 +1,5 @@
-//import puppeteer from "puppeteer";
+export const maxDuration = 25; // Max duration for the action to respond in Vercel
+
 import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
