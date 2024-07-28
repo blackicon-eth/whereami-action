@@ -10,6 +10,6 @@ export const frames = createFrames({
     farcasterHubContext({
       hubHttpUrl: DEFAULT_DEBUGGER_HUB_URL,
     }),
-    warpcastComposerActionState(),
+    //warpcastComposerActionState(),
   ],
 });
