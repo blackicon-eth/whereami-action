@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import { NextRequest, NextResponse } from "next/server";
+import chromium from "chrome-aws-lambda";
 import { appURL } from "../utils";
 
 const handler = async (req: NextRequest) => {
@@ -11,7 +12,13 @@ const handler = async (req: NextRequest) => {
   const longitude = parseFloat(lng as string);
 
   // Launch a headless browser
-  const browser = await puppeteer.launch();
+  const browser = await chromium.puppeteer.launch({
+    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: true,
+    ignoreHTTPSErrors: true,
+  });
   const page = await browser.newPage();
 
   // Set the viewport size to be slightly larger than the map container size
