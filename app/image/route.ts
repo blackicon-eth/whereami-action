@@ -44,10 +44,10 @@ const handler = async (req: NextRequest) => {
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         
         var customIcon = L.icon({
-          iconUrl: '${appURL()}/pin.png', // Default icon URL
-          iconSize: [87, 87], 
-          iconAnchor: [44, 87],
-          popupAnchor: [0, -90],
+          iconUrl: 'http://localhost:3000/pin.png', // Default icon URL
+          iconSize: [88, 88], 
+          iconAnchor: [44, 88],
+          popupAnchor: [0, -91],
           shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
           shadowSize: [68, 95],
           shadowAnchor: [22, 94]
