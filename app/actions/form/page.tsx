@@ -162,7 +162,7 @@ export default function LocationForm({
             <Button className="w-36" buttonText="Get Location" onClick={getCoordinates} rounded="2xl" />
             <Button
               className="w-36"
-              buttonText="Share Frame!"
+              buttonText="Share it!"
               onClick={submitForm}
               rounded="2xl"
               disabled={!coordinates}
