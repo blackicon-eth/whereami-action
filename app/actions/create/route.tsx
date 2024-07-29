@@ -1,7 +1,6 @@
 import { appURL } from "../../utils";
 import { frames } from "../../frames/frames";
 import { composerAction, composerActionForm, error } from "frames.js/core";
-import { extractComposerActionStateFromMessage } from "../../../lib/framejs/utils";
 
 export const GET = async () => {
   return composerAction({
@@ -11,7 +10,7 @@ export const GET = async () => {
     icon: "pin",
     name: "Where Am I?",
     aboutUrl: `${appURL()}`,
-    description: "A composer action to share your location on Farcaster.",
+    description: "Share your location",
   });
 };
 
@@ -27,12 +26,11 @@ export const POST = frames(async (ctx) => {
   }
 
   // Check if the state is valid
-  const composerActionState = extractComposerActionStateFromMessage(ctx);
-  if (!composerActionState) {
+  if (!ctx.composerActionState) {
     return error("Must be called from composer");
   }
 
-  createActionUrl.searchParams.set("state", JSON.stringify(composerActionState.cast));
+  createActionUrl.searchParams.set("state", JSON.stringify(ctx.composerActionState));
 
   return composerActionForm({
     title: "Pick your location",

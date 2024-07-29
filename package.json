@@ -19,7 +19,7 @@
     "canvas": "^2.11.2",
     "classnames": "^2.5.1",
     "clsx": "^2.1.0",
-    "frames.js": "^0.18.0",
+    "frames.js": "^0.18.1",
     "leaflet": "^1.9.4",
     "next": "^14.1.4",
     "puppeteer": "22.13.1",
