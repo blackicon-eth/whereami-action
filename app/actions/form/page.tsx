@@ -54,8 +54,8 @@ export default function LocationForm({
       console.log(data);
       if (data.features[0]?.geometry.coordinates && data.features[0]?.properties.display_name) {
         setCoordinates({
-          lng: parseFloat(data.features[0]?.geometry.coordinates[0]!.toFixed(4)),
-          lat: parseFloat(data.features[0]?.geometry.coordinates[1]!.toFixed(4)),
+          lng: parseFloat(data.features[0]?.geometry.coordinates[0]!.toFixed(6)),
+          lat: parseFloat(data.features[0]?.geometry.coordinates[1]!.toFixed(6)),
         });
         setLocation(data.features[0]?.properties.display_name);
         setError(null);
@@ -95,97 +95,111 @@ export default function LocationForm({
   };
 
   return (
-    <form
-      className="flex flex-col gap-3 bg-lime-300 px-5 pb-5 pt-3 m-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]"
-      onSubmit={submitForm}
-    >
-      {/* City */}
-      <div className="flex flex-col">
-        <label className="text-[20px] font-bold pb-1" htmlFor="city">
-          City
-        </label>
-        <Input type="text" value={city} onChange={setCity} placeholder="City name" rounded="md" focusColor="yellow" />
-      </div>
+    <main className="flex flex-col items-center justify-start sm:px-0 sm:py-5 px-3 pt-2 pb-3 bg-lime-100">
+      <form
+        className="flex relative -left-[1px] max-w-lg bg-lime-300 px-5 sm:px-14 pb-5 pt-3 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]"
+        onSubmit={submitForm}
+      >
+        <div className="flex flex-col items-center gap-3 ">
+          {/* Title */}
+          <h1 className="text-[30px] font-bold">Where am I? 📌</h1>
 
-      {/* Country */}
-      <div className="flex flex-col">
-        <label htmlFor="country" className="text-[20px] font-bold pb-1">
-          Country
-        </label>
-        <Input
-          type="text"
-          value={country}
-          onChange={setCountry}
-          placeholder="Country name (e.g. IT or Italy)"
-          rounded="md"
-          focusColor="yellow"
-        />
-      </div>
+          {/* Instructions */}
+          <div className="text-[18px] w-full text-gray-600 text-wrap leading-tight">
+            Fill at least <b>one field</b> to get your location and share it with your friends & followers!
+          </div>
 
-      {/* Postal Code */}
-      <div className="flex flex-col">
-        <label htmlFor="postalCode" className="text-[20px] font-bold pb-1">
-          Zip Code
-        </label>
-        <Input
-          type="text"
-          value={postalCode}
-          onChange={setPostalCode}
-          placeholder="Postal code"
-          rounded="md"
-          focusColor="yellow"
-        />
-      </div>
+          {/* City */}
+          <div className="flex flex-col w-full">
+            <label className="text-[20px] font-bold pb-1" htmlFor="city">
+              City
+            </label>
+            <Input type="text" value={city} onChange={setCity} placeholder="City name" rounded="md" focusColor="yellow" />
+          </div>
 
-      {/* Street */}
-      <div className="flex flex-col">
-        <label htmlFor="street" className="text-[20px] font-bold pb-1">
-          Street
-        </label>
-        <Input type="text" value={street} onChange={setStreet} placeholder="Address" rounded="md" focusColor="yellow" />
-      </div>
+          {/* Country */}
+          <div className="flex flex-col w-full">
+            <label htmlFor="country" className="text-[20px] font-bold pb-1">
+              Country
+            </label>
+            <Input
+              type="text"
+              value={country}
+              onChange={setCountry}
+              placeholder="Country name (e.g. IT or Italy)"
+              rounded="md"
+              focusColor="yellow"
+            />
+          </div>
 
-      <div className="">* Fill at least one field</div>
+          {/* Postal Code */}
+          <div className="flex flex-col w-full">
+            <label htmlFor="postalCode" className="text-[20px] font-bold pb-1">
+              Zip Code
+            </label>
+            <Input
+              type="text"
+              value={postalCode}
+              onChange={setPostalCode}
+              placeholder="Postal code"
+              rounded="md"
+              focusColor="yellow"
+            />
+          </div>
 
-      {/* Buttons */}
-      <div className="flex flex-row justify-start gap-3 pb-4">
-        <Button className="w-40" buttonText="Get Coordinates" onClick={getCoordinates} rounded="2xl" />
-        <Button
-          className="w-40"
-          buttonText="Create Frame"
-          onClick={submitForm}
-          rounded="2xl"
-          disabled={!coordinates}
-          color="yellow"
-        />
-      </div>
+          {/* Street */}
+          <div className="flex flex-col w-full">
+            <label htmlFor="street" className="text-[20px] font-bold pb-1">
+              Street
+            </label>
+            <Input type="text" value={street} onChange={setStreet} placeholder="Address" rounded="md" focusColor="yellow" />
+          </div>
 
-      {(() => {
-        if (coordinates && !error) {
-          return (
-            <div className="flex flex-col gap-1 bg-white p-3 border-2 border-black rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)]">
-              <div className="flex flex-row gap-3 justify-start">
-                <div className="text-[17px] font-bold">Latitude:</div>
-                <div className="text-[17px] pr-4">{coordinates.lat}</div>
-                <div className="text-[17px] font-bold">Longitude:</div>
-                <div className="text-[17px]">{coordinates.lng}</div>
-              </div>
-              <div className="flex flex-row gap-3 justify-start">
-                <div className="text-[17px] font-bold">Location:</div>
-                <div className="text-[17px]">{location}</div>
-              </div>
-            </div>
-          );
-        } else if (error && !coordinates) {
-          return (
-            <div className="bg-red-100 p-3 border-2 border-black rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)]">
-              <div className="flex text-bold text-red-600">{error}</div>
-            </div>
-          );
-        } else {
-          return null;
-        }
-      })()}
-    </form>
+          <div className="">* No data will be stored</div>
+
+          {/* Buttons */}
+          <div className="flex flex-row gap-3 pb-4 w-full justify-center">
+            <Button className="w-36" buttonText="Get Location" onClick={getCoordinates} rounded="2xl" />
+            <Button
+              className="w-36"
+              buttonText="Share Frame!"
+              onClick={submitForm}
+              rounded="2xl"
+              disabled={!coordinates}
+              color="yellow"
+            />
+          </div>
+
+          {(() => {
+            if (coordinates && !error) {
+              return (
+                <div className="flex flex-col gap-1 w-full bg-white p-3 border-2 border-black rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                  <div className="flex flex-col gap-1 justify-start">
+                    <div className="text-[17px]">
+                      <b>Latitude:</b> &nbsp; {coordinates.lat}📍
+                    </div>
+                    <div className="text-[17px]">
+                      <b>Longitude:</b> &nbsp; {coordinates.lng}📍
+                    </div>
+                  </div>
+                  <div className="flex flex-row gap-2 justify-start">
+                    <div className="text-[17px] font-bold">Location:</div>
+                    <div className="text-[17px]">{location}</div>
+                  </div>
+                </div>
+              );
+            } else if (error && !coordinates) {
+              return (
+                <div className="bg-red-100 w-full p-3 border-2 border-black rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                  <div className="flex text-bold text-red-600">{error}</div>
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })()}
+        </div>
+      </form>
+    </main>
   );
 }
