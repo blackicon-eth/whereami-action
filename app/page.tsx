@@ -15,8 +15,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-3 items-center sm:justify-center pt-3 sm:pt-0 w-screen h-screen bg-lime-100">
-      <div className="flex flex-col relative -left-[2px] sm:-left-0 gap-3 bg-lime-300 px-5 pb-7 pt-3 mx-2 mb-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]">
+    <main className="flex flex-col gap-3 items-center sm:justify-center w-full bg-lime-100">
+      <div className="flex flex-col relative -left-[2px] sm:-left-0 gap-3 bg-lime-300 px-5 pb-7 pt-3 m-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]">
         <label className="text-[40px] font-bold text-center">Where am I? 📌</label>
         <p className="text-[18px] text-gray-600 pb-2.5 leading-tight">
           It&apos;s a farcaster composer action and it&apos;s easier to use than you think!
@@ -31,7 +31,7 @@ export default function Home() {
         <p className="text-[20px]">6. If you are satisfied with the result, click on the &quot;Share it!&quot; button</p>
         <p className="text-[20px]">7. Done! You have successfully created a frame with your location!</p>
       </div>
-      <div className="flex flex-col relative -left-[2px] sm:-left-0 bg-white px-5 py-4 mx-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]">
+      <div className="flex flex-col relative -left-[2px] sm:-left-0 bg-white px-5 py-4 mb-5 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]">
         <div className="flex flex-row justify-center">
           Made with ❤️ by
           <a className="flex flex-row underline ml-1.5" href="https://warpcast.com/blackicon.eth" target="_blank">
