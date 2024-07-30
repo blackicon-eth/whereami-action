@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-3 items-center sm:justify-center w-full bg-lime-100">
+    <main className="flex flex-col gap-3 items-center sm:justify-center sm:h-screen bg-lime-100">
       <div className="flex flex-col relative -left-[2px] sm:-left-0 gap-3 bg-lime-300 px-5 pb-7 pt-3 m-2 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]">
         <label className="text-[40px] font-bold text-center">Where am I? 📌</label>
         <p className="text-[18px] text-gray-600 pb-2.5 leading-tight">
