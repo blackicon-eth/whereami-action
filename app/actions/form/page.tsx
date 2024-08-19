@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import type { ComposerActionState } from "frames.js/types";
 import React, { useState } from "react";
@@ -29,6 +30,7 @@ export default function LocationForm({
   const [country, setCountry] = useState<string>("");
   const [postalCode, setPostalCode] = useState<string>("");
   const [street, setStreet] = useState<string>("");
+  const [zoom, setZoom] = useState<string>("");
   const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null);
   const [location, setLocation] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +53,6 @@ export default function LocationForm({
         },
       });
       const data: Coordinates = await response.json();
-      console.log(data);
       if (data.features[0]?.geometry.coordinates && data.features[0]?.properties.display_name) {
         setCoordinates({
           lng: parseFloat(data.features[0]?.geometry.coordinates[0]!.toFixed(6)),
@@ -78,6 +79,7 @@ export default function LocationForm({
     newFrameUrl.searchParams.set("lat", coordinates!.lat.toString());
     newFrameUrl.searchParams.set("lng", coordinates!.lng.toString());
     newFrameUrl.searchParams.set("location", location!);
+    newFrameUrl.searchParams.set("zoom", zoom);
 
     window.parent.postMessage(
       {
@@ -100,7 +102,7 @@ export default function LocationForm({
         className="flex relative -left-[1px] max-w-lg bg-lime-300 px-5 sm:px-14 pb-5 pt-3 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]"
         onSubmit={submitForm}
       >
-        <div className="flex flex-col items-center gap-3 ">
+        <div className="flex flex-col items-center gap-2 ">
           {/* Title */}
           <h1 className="text-[30px] font-bold">Where am I? 📌</h1>
 
@@ -132,19 +134,41 @@ export default function LocationForm({
             />
           </div>
 
-          {/* Postal Code */}
-          <div className="flex flex-col w-full">
-            <label htmlFor="postalCode" className="text-[20px] font-bold pb-1">
-              Zip Code
-            </label>
-            <Input
-              type="text"
-              value={postalCode}
-              onChange={setPostalCode}
-              placeholder="Postal code"
-              rounded="md"
-              focusColor="yellow"
-            />
+          {/* Postal Code and Zoom */}
+          <div className="flex flex-row w-full gap-5">
+            <div className="flex flex-col w-1/2">
+              <label htmlFor="postalCode" className="text-[20px] font-bold pb-1">
+                Zip Code
+              </label>
+              <Input
+                type="text"
+                value={postalCode}
+                onChange={setPostalCode}
+                placeholder="Postal code"
+                rounded="md"
+                focusColor="yellow"
+              />
+            </div>
+
+            <div className="flex flex-col w-1/2">
+              <label htmlFor="zoom" className="text-[20px] font-bold pb-1">
+                Map Zoom
+              </label>
+              <Input
+                className="w-[80%]"
+                type="number"
+                placeholder="1-17"
+                value={zoom}
+                onChange={(e) => {
+                  let value = parseInt(e, 10);
+                  if (value < 1) value = 1;
+                  if (value > 17) value = 17;
+                  setZoom(value.toString());
+                }}
+                rounded="md"
+                focusColor="yellow"
+              />
+            </div>
           </div>
 
           {/* Street */}
@@ -155,7 +179,24 @@ export default function LocationForm({
             <Input type="text" value={street} onChange={setStreet} placeholder="Address" rounded="md" focusColor="yellow" />
           </div>
 
-          <div className="">* No data will be stored</div>
+          <div className="flex flex-col justify-center items-center text-xs">
+            <div>* No data will be stored.</div>
+            <div className="flex flex-row">
+              Check the source code on
+              <a
+                className="flex flex-row justify-center items-center underline ml-1"
+                href="https://github.com/blackicon-eth/whereami-action"
+                target="_blank"
+              >
+                GitHub
+                <img
+                  className="ml-1 h-4 w-4 rounded-full"
+                  src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                  alt="github logo"
+                />
+              </a>
+            </div>
+          </div>
 
           {/* Buttons */}
           <div className="flex flex-row gap-3 pb-4 w-full justify-center">
@@ -185,6 +226,14 @@ export default function LocationForm({
                   <div className="flex flex-row gap-2 justify-start">
                     <div className="text-[17px] font-bold">Location:</div>
                     <div className="text-[17px]">{location}</div>
+                  </div>
+                  <div className="flex flex-col justify-start">
+                    <div className="text-[17px] font-bold">Frame preview:</div>
+                    <img
+                      className="rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                      src={`/image?lat=${coordinates.lat}&lng=${coordinates.lng}&location=${location}&zoom=${zoom}`}
+                      alt="frame image preview"
+                    />
                   </div>
                 </div>
               );

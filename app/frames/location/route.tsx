@@ -6,6 +6,7 @@ const locationFrameHandler = frames(async (ctx) => {
   const longitude: string | undefined = ctx.searchParams.lng;
   const latitude: string | undefined = ctx.searchParams.lat;
   const location: string | undefined = ctx.searchParams.location;
+  const zoom: string | undefined = ctx.searchParams.zoom;
 
   if (!longitude || !latitude || !location) {
     // Throw an error if the required parameters are missing
@@ -14,7 +15,7 @@ const locationFrameHandler = frames(async (ctx) => {
 
   return {
     title: "My Location",
-    image: `${appURL()}/image?lat=${latitude}&lng=${longitude}&location=${location}`,
+    image: `${appURL()}/image?lat=${latitude}&lng=${longitude}&location=${location}&zoom=${zoom}`,
     imageOptions: {
       aspectRatio: "1.91:1",
     },
