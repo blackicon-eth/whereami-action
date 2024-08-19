@@ -4,6 +4,7 @@ import type { ComposerActionState } from "frames.js/types";
 import React, { useState } from "react";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
+import ImagePreview from "../../../components/ImagePreview";
 
 interface Coordinates {
   features: {
@@ -229,11 +230,7 @@ export default function LocationForm({
                   </div>
                   <div className="flex flex-col justify-start">
                     <div className="text-[17px] font-bold">Frame preview:</div>
-                    <img
-                      className="rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)]"
-                      src={`/image?lat=${coordinates.lat}&lng=${coordinates.lng}&location=${location}&zoom=${zoom}`}
-                      alt="frame image preview"
-                    />
+                    <ImagePreview latitude={coordinates.lat} longitude={coordinates.lng} location={location} zoom={zoom} />
                   </div>
                 </div>
               );
