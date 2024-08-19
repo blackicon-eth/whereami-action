@@ -100,10 +100,10 @@ export default function LocationForm({
   return (
     <main className="flex flex-col items-center justify-start sm:px-0 sm:py-5 px-3 pt-2 pb-3 bg-lime-100">
       <form
-        className="flex relative -left-[1px] max-w-lg bg-lime-300 px-5 sm:px-14 pb-5 pt-3 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]"
+        className="flex items-center justify-center -left-[1px] max-w-lg bg-lime-300 sm:px-10 sm:mr-0 mr-1 pb-5 pt-3 border-2 border-black rounded-lg shadow-[6px_6px_0px_rgba(0,0,0,1)]"
         onSubmit={submitForm}
       >
-        <div className="flex flex-col items-center gap-2 ">
+        <div className="flex flex-col items-center justify-center gap-1.5 sm:w-full w-[90%]">
           {/* Title */}
           <h1 className="text-[30px] font-bold">Where am I? 📌</h1>
 
@@ -156,7 +156,7 @@ export default function LocationForm({
                 Map Zoom
               </label>
               <Input
-                className="w-[80%]"
+                className="w-full"
                 type="number"
                 placeholder="1-17"
                 value={zoom}
