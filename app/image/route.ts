@@ -22,8 +22,6 @@ const handler = async (req: NextRequest) => {
         ? "18"
         : (parseInt(zoom) + 1).toString();
 
-    console.log("Generating image for: ", location, "at: ", lat, lng, "with zoom: ", zoom);
-
     const latitude = parseFloat(lat as string);
     const longitude = parseFloat(lng as string);
 
@@ -42,7 +40,7 @@ const handler = async (req: NextRequest) => {
     const page = await browser.newPage();
 
     // Set the viewport size to be slightly larger than the map container size
-    await page.setViewport({ width: 955, height: 500 });
+    await page.setViewport({ width: 764, height: 400 });
 
     // Set the content of the page
     await page.setContent(`
@@ -51,7 +49,7 @@ const handler = async (req: NextRequest) => {
       <head>
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
         <style>
-          #map { height: 500px; width: 955px; margin-top: -8px; margin-left: -8px; }
+          #map { height: 400px; width: 764px; margin-top: -8px; margin-left: -8px; }
           .leaflet-popup-content-wrapper {
             font-size: 25px; /* Increase the font size */
           }
@@ -91,7 +89,7 @@ const handler = async (req: NextRequest) => {
     await page.waitForSelector("#map");
 
     // Wait for network to be idle
-    await page.waitForNetworkIdle({ idleTime: 1000 });
+    await page.waitForNetworkIdle({ idleTime: 500 });
 
     // Capture the screenshot
     const buffer = await page.screenshot({ type: "png" });
